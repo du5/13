@@ -26,7 +26,7 @@
 ##! On AWS EC2 instances, we also attempt to fetch the public hostname/IP
 ##! address from AWS. For more details, see:
 ##! https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-external_url 'http://git.bet'
+external_url 'http://ec2-176-34-9-231.ap-northeast-1.compute.amazonaws.com'
 
 ## Roles for multi-instance GitLab
 ##! The default is to have no roles enabled, which results in GitLab running as an all-in-one instance.
@@ -740,9 +740,11 @@ external_url 'http://git.bet'
 
 # gitlab_workhorse['enable'] = true
 # gitlab_workhorse['ha'] = false
-gitlab_workhorse['listen_network'] = "tcp"
+# gitlab_workhorse['listen_network'] = "unix"
+gitlab_workhorse['listen_network']="tcp"
 # gitlab_workhorse['listen_umask'] = 000
-gitlab_workhorse['listen_addr'] = "127.0.0.1:8234"
+# gitlab_workhorse['listen_addr'] = "/var/opt/gitlab/gitlab-workhorse/socket"
+gitlab_workhorse['listen_addr']="127.0.0.1:8234"
 # gitlab_workhorse['auth_backend'] = "http://localhost:8080"
 
 ##! the empty string is the default in gitlab-workhorse option parser
@@ -1179,6 +1181,7 @@ gitlab_workhorse['listen_addr'] = "127.0.0.1:8234"
 ##! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html
 ################################################################################
 
+# nginx['enable'] = true
 nginx['enable'] = false
 # nginx['client_max_body_size'] = '250m'
 # nginx['redirect_http_to_https'] = false
